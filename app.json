@@ -1,4 +1,9 @@
 {
-  "name": "trace_ai",
-  "slug": "trace_ai"
+  "expo": {
+    "name": "trace_ai",
+    "slug": "trace_ai",
+    "web": {
+      "bundler": "metro"
+    }
+  }
 }

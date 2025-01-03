@@ -103,34 +103,56 @@ const HomeScreen = ({ navigation }) => {
   // Render the cell UI
   const renderCell = (cell) => (
     <View key={cell.id} style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, marginBottom: 10 }}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginBottom: 10 }}>
         {/* <Text>Cell ID: {cell.id}</Text> */}
         <TouchableOpacity onPress={() => handleMenuOpen(cell.id)}>
-          <Text style={{ color: 'blue' }}>Menu</Text>
+          <Text style={{ color: 'blue' }}>Options</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Cell Inputs */}
-      <TextInput
-        style={{ height: 40, borderColor: '#ccc', borderWidth: 1, marginBottom: 10, paddingLeft: 10 }}
-        placeholder="Prompt"
-        value={cell.inputs.prompt}
-        onChangeText={(text) => handleInputChange(cell.id, 'prompt', text)}
-      />
-      <TextInput
-        style={{ height: 100, borderColor: '#ccc', borderWidth: 1, marginBottom: 10, paddingLeft: 10 }}
-        placeholder="Result"
-        multiline
-        value={cell.inputs.result}
-        onChangeText={(text) => handleInputChange(cell.id, 'result', text)}
-      />
-      <TextInput
-        style={{ height: 100, borderColor: '#ccc', borderWidth: 1, marginBottom: 10, paddingLeft: 10 }}
-        placeholder="Review"
-        multiline
-        value={cell.inputs.review}
-        onChangeText={(text) => handleInputChange(cell.id, 'review', text)}
-      />
+    {/* Cell Inputs */}
+    <TextInput
+      style={{
+        height: 40,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        marginBottom: 10,
+        paddingLeft: 10,
+        backgroundColor: '#dfffd6' // Pastel green
+      }}
+      placeholder="Prompt"
+      value={cell.inputs.prompt}
+      onChangeText={(text) => handleInputChange(cell.id, 'prompt', text)}
+    />
+    <TextInput
+      style={{
+        height: 100,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        marginBottom: 10,
+        paddingLeft: 10,
+        backgroundColor: '#fffbd6' // Pastel yellow
+      }}
+      placeholder="Result"
+      multiline
+      value={cell.inputs.result}
+      onChangeText={(text) => handleInputChange(cell.id, 'result', text)}
+    />
+    <TextInput
+      style={{
+        height: 100,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        marginBottom: 10,
+        paddingLeft: 10,
+        backgroundColor: '#ffd6e6' // Pastel pink
+      }}
+      placeholder="Review"
+      multiline
+      value={cell.inputs.review}
+      onChangeText={(text) => handleInputChange(cell.id, 'review', text)}
+    />
+
     </View>
   );
 
@@ -208,18 +230,20 @@ const UploadJSONScreen = ({ navigation }) => {
       <Text style={{ fontSize: 16, marginBottom: 20 }}>
         If the file is modified, the system may not process it correctly.
       </Text>
-
-      <TouchableOpacity 
-        onPress={handleUploadJson} 
-        style={{ 
-          marginVertical: 10,
-          alignSelf: 'center',
-        }}
-      >
-        <Text style={{ color: 'blue', fontSize: 16 }}>
-          Upload File
-        </Text>
-      </TouchableOpacity>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
+        <TouchableOpacity 
+          onPress={handleUploadJson} 
+          style={{
+            backgroundColor: "blue",
+            padding: 10,
+            borderRadius: 5,
+            alignItems: "center",
+            marginVertical: 10,
+          }}
+        >
+          <Text style={{ color: "white", fontSize: 16 }}>Upload File</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -238,7 +262,7 @@ const DownloadJSONScreen = ({ navigation }) => {
     link.href = URL.createObjectURL(blob);
     link.download = 'cells.json';
     link.click();
-    alert('JSON downloaded!');
+    alert('File downloaded!');
   };
 
   return (
@@ -266,13 +290,14 @@ const DownloadJSONScreen = ({ navigation }) => {
         <TouchableOpacity
           onPress={handleSaveAsJSON}
           style={{
+            backgroundColor: "blue",
+            padding: 10,
+            borderRadius: 5,
+            alignItems: "center",
             marginVertical: 10,
-            alignItems: 'center', // This ensures the button text is centered
           }}
         >
-          <Text style={{ color: 'blue', fontSize: 16 }}>
-            Download JSON
-          </Text>
+          <Text style={{ color: "white", fontSize: 16 }}>Download File</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -381,10 +406,10 @@ export default function App() {
   return (
     <CellsProvider>
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Home">
-          <Drawer.Screen name="Home" component={HomeScreen} />
-          <Drawer.Screen name="Upload JSON" component={UploadJSONScreen} />
-          <Drawer.Screen name="Download JSON" component={DownloadJSONScreen} />
+        <Drawer.Navigator initialRouteName="TraceAI Home">
+          <Drawer.Screen name="TraceAI Home" component={HomeScreen} />
+          <Drawer.Screen name="Upload File" component={UploadJSONScreen} />
+          <Drawer.Screen name="Save File" component={DownloadJSONScreen} />
           <Drawer.Screen name="Analyze" component={AnalyzeScreen} />
         </Drawer.Navigator>
       </NavigationContainer>
